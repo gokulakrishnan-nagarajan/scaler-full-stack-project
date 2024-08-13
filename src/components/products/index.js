@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ProductCard from "../productCard";
+
+import styles from "./index.module.scss";
 
 const PRODUCTS = [
     { title: "iPhone 14", price: "Rs. 80,000" },
@@ -11,9 +13,36 @@ const PRODUCTS = [
 ];
 
 function Products() {
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        setIsLoading(true);
+        setProducts([]);
+
+        setTimeout(() => {
+            setIsLoading(false);
+            setProducts(PRODUCTS);
+        }, 2000);
+    };
+
+    if (isLoading) {
+        return (
+            <img
+                className={styles.loader}
+                alt="loading"
+                src="https://i.gifer.com/ZKZg.gif"
+            />
+        );
+    }
+
     return (
         <div>
-            {PRODUCTS.map(({ title, price }) => (
+            {products.map(({ title, price }) => (
                 <ProductCard key={title} title={title} price={price} />
             ))}
         </div>
