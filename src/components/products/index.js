@@ -5,7 +5,9 @@ import ProductCard from "../productCard";
 
 import styles from "./index.module.scss";
 
-function Products() {
+function Products(props) {
+    const { cart, addToCart, removeFromCart } = props;
+
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -43,8 +45,14 @@ function Products() {
 
     return (
         <div>
-            {products.map(({ id, title, price }) => (
-                <ProductCard key={id} title={title} price={price} />
+            {products.map((product) => (
+                <ProductCard
+                    key={product.id}
+                    product={product}
+                    cart={cart}
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                />
             ))}
         </div>
     );

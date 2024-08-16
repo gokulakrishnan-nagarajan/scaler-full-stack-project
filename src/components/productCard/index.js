@@ -1,24 +1,28 @@
 import React from "react";
 
 import { CURRENCY_MAP, DEFAULT_CURRENCY } from "../../constants/currency";
+import AddToCart from "../addToCart";
 
 import styles from "./index.module.scss";
 
 function ProductCard(props) {
-    const {
-        title,
-        price: { currency, value },
-    } = props;
+    const { product, cart, addToCart, removeFromCart } = props;
 
     const currentSymbol =
-        CURRENCY_MAP[currency] ?? CURRENCY_MAP[DEFAULT_CURRENCY];
+        CURRENCY_MAP[product.price.currency] ?? CURRENCY_MAP[DEFAULT_CURRENCY];
 
     return (
         <div className={styles.container}>
-            <div>{title}</div>
+            <div>{product.title}</div>
             <div>
-                {currentSymbol} {value}
+                {currentSymbol} {product.price.value}
             </div>
+            <AddToCart
+                product={product}
+                cart={cart}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+            />
         </div>
     );
 }
