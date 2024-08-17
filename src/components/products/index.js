@@ -5,9 +5,7 @@ import ProductCard from "../productCard";
 
 import styles from "./index.module.scss";
 
-function Products(props) {
-    const { cart, addToCart, removeFromCart } = props;
-
+function Products() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -35,24 +33,20 @@ function Products(props) {
 
     if (isLoading) {
         return (
-            <img
-                className={styles.loader}
-                alt="loading"
-                src="https://i.gifer.com/ZKZg.gif"
-            />
+            <div className="flex-justify-center">
+                <img
+                    className={styles.loader}
+                    alt="loading"
+                    src="https://i.gifer.com/ZKZg.gif"
+                />
+            </div>
         );
     }
 
     return (
         <div>
             {products.map((product) => (
-                <ProductCard
-                    key={product.id}
-                    product={product}
-                    cart={cart}
-                    addToCart={addToCart}
-                    removeFromCart={removeFromCart}
-                />
+                <ProductCard key={product.id} product={product} />
             ))}
         </div>
     );

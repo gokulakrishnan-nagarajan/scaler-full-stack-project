@@ -6,7 +6,7 @@ import AddToCart from "../addToCart";
 import styles from "./index.module.scss";
 
 function ProductCard(props) {
-    const { product, cart, addToCart, removeFromCart } = props;
+    const { product } = props;
 
     const currentSymbol =
         CURRENCY_MAP[product.price.currency] ?? CURRENCY_MAP[DEFAULT_CURRENCY];
@@ -17,12 +17,7 @@ function ProductCard(props) {
             <div>
                 {currentSymbol} {product.price.value}
             </div>
-            <AddToCart
-                product={product}
-                cart={cart}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-            />
+            <AddToCart product={product} />
         </div>
     );
 }

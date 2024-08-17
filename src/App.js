@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Products from "./components/products";
+import CartContext from "./context/cartContext/CartContext";
+import ProductsPage from "./pages/productsPage";
+import CartPage from "./pages/cartPage";
+import NotFound from "./pages/notFound";
 
 import "./App.css";
 
@@ -40,11 +44,15 @@ function App() {
 
     return (
         <div className="App">
-            <Products
-                cart={cart}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-            />
+            <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" component={ProductsPage} exact />
+                        <Route path="/cart" component={CartPage} exact />
+                        <Route component={NotFound} exact />
+                    </Switch>
+                </BrowserRouter>
+            </CartContext.Provider>
         </div>
     );
 }

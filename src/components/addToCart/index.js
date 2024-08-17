@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import CartContext from "../../context/cartContext/CartContext";
 
 function AddToCart(props) {
-    const { product, cart, addToCart, removeFromCart } = props;
+    const { product } = props;
+
+    const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
     const increment = () => {
         addToCart(product);
