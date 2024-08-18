@@ -1,0 +1,13 @@
+.rating-star {
+    color: #e2e2e2;
+
+    &.active {
+        color: #f1c557;
+    }
+}
+
+.rating-count {
+    margin-left: 4px;
+    color: #666;
+    font-size: 14px;
+}

@@ -2,21 +2,27 @@ import React from "react";
 
 import { CURRENCY_MAP, DEFAULT_CURRENCY } from "../../constants/currency";
 import AddToCart from "../addToCart";
+import Rating from "../rating";
 
 import styles from "./index.module.scss";
 
 function ProductCard(props) {
     const { product } = props;
 
+    const { title, price, rating } = product || {};
+    const { currency, value: priceValue } = price || {};
+    const { count: ratingCount, value: ratingValue } = rating || {};
+
     const currentSymbol =
-        CURRENCY_MAP[product.price.currency] ?? CURRENCY_MAP[DEFAULT_CURRENCY];
+        CURRENCY_MAP[currency] ?? CURRENCY_MAP[DEFAULT_CURRENCY];
 
     return (
         <div className={styles.container}>
-            <div>{product.title}</div>
+            <div>{title}</div>
             <div>
-                {currentSymbol} {product.price.value}
+                {currentSymbol} {priceValue}
             </div>
+            <Rating rating={ratingValue} count={ratingCount} />
             <AddToCart product={product} />
         </div>
     );
