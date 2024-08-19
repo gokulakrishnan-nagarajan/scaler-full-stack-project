@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
-import CartContext from "../../context/cartContext/CartContext";
 import { CURRENCY_MAP, DEFAULT_CURRENCY } from "../../constants/currency";
 import AddToCart from "../addToCart";
 
 import styles from "./index.module.scss";
 
 function Cart() {
-    const { cart } = useContext(CartContext);
+    const cart = useSelector((state) => state.cart.items);
 
     const cartItems = Object.values(cart);
 

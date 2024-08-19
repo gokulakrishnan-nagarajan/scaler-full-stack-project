@@ -1,30 +1,37 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import CartContext from "../../context/cartContext/CartContext";
+import { addToCart, removeFromCart } from "../../store/cart";
+
+import styles from "./index.module.scss";
 
 function AddToCart(props) {
     const { product } = props;
 
-    const { cart, addToCart, removeFromCart } = useContext(CartContext);
+    const dispatch = useDispatch();
+
+    const quantity = useSelector((state) => {
+        return state.cart.items[product.id]?.quantity || 0;
+    });
 
     const increment = () => {
-        addToCart(product);
+        dispatch(addToCart(product));
     };
 
     const decrement = () => {
-        removeFromCart(product);
+        dispatch(removeFromCart(product));
     };
 
-    if (!cart[product.id] || !cart[product.id].quantity) {
+    if (!quantity) {
         return <button onClick={increment}>Add To Cart</button>;
     }
 
     return (
-        <>
+        <div>
             <button onClick={decrement}>-</button>
-            {cart[product.id].quantity}
+            <span className={styles["quantity"]}>{quantity}</span>
             <button onClick={increment}>+</button>
-        </>
+        </div>
     );
 }
 
