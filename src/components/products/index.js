@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { fetchProducts } from "../../helper/api";
+import { fetchProducts } from "../../store/products";
 import ProductCard from "../productCard";
 
 import styles from "./index.module.scss";
 
 function Products() {
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+
+    const products = useSelector((state) => state.products.list || []);
+
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (!products.length) {
+            setIsLoading(true);
 
-    const fetchData = () => {
-        setIsLoading(true);
-        setProducts([]);
-
-        fetchProducts()
-            .then((data) => {
-                console.log("Debug", "products", data);
-
-                setProducts(data);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-            .finally(() => {
+            dispatch(fetchProducts()).finally(() => {
                 setIsLoading(false);
             });
-    };
+        }
+    }, []);
 
     if (isLoading) {
         return (
