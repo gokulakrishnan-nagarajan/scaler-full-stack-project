@@ -5,7 +5,7 @@ import Products from "../../components/products";
 
 function ProductsPage() {
     return (
-        <div>
+        <div className="flex-column flex-align-center">
             <Link to="/cart">Go to cart</Link>
             <Products />
         </div>

@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { CURRENCY_MAP, DEFAULT_CURRENCY } from "../../constants/currency";
-import AddToCart from "../addToCart";
+import ProductCard from "../productCard";
 
 import styles from "./index.module.scss";
 
@@ -11,22 +10,14 @@ function Cart() {
 
     const cartItems = Object.values(cart);
 
+    if (!cartItems.length) {
+        return <div className={styles["cart-empty"]}>Cart is empty !</div>;
+    }
+
     return (
         <div>
-            {cartItems.map((item) => {
-                const currentSymbol =
-                    CURRENCY_MAP[item.price.currency] ??
-                    CURRENCY_MAP[DEFAULT_CURRENCY];
-
-                return (
-                    <div key={item.id} className={`${styles["container"]}`}>
-                        <div>{item.title}</div>
-                        <div>
-                            {currentSymbol} {item.price.value}
-                        </div>
-                        <AddToCart product={item} />
-                    </div>
-                );
+            {cartItems.map((product) => {
+                return <ProductCard key={product.id} product={product} />;
             })}
         </div>
     );

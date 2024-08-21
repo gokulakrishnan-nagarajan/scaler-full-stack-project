@@ -39,7 +39,7 @@ function Rating(props) {
     };
 
     return (
-        <div className="flex-align-center flex-justify-center">
+        <div className="flex-align-center">
             <div>{getRatings()}</div>
             <div className={styles["rating-count"]}>({count})</div>
         </div>

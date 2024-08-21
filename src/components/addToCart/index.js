@@ -23,7 +23,11 @@ function AddToCart(props) {
     };
 
     if (!quantity) {
-        return <button onClick={increment}>Add To Cart</button>;
+        return (
+            <button className={styles["add-to-cart"]} onClick={increment}>
+                Add To Cart
+            </button>
+        );
     }
 
     return (

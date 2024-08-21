@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchProducts } from "../../store/products";
@@ -9,21 +9,17 @@ import styles from "./index.module.scss";
 function Products() {
     const dispatch = useDispatch();
 
-    const products = useSelector((state) => state.products.list || []);
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { list: products, isLoading: isProductsLoading } = useSelector(
+        (state) => state.products || {}
+    );
 
     useEffect(() => {
         if (!products.length) {
-            setIsLoading(true);
-
-            dispatch(fetchProducts()).finally(() => {
-                setIsLoading(false);
-            });
+            dispatch(fetchProducts());
         }
     }, []);
 
-    if (isLoading) {
+    if (isProductsLoading) {
         return (
             <div className="flex-justify-center">
                 <img

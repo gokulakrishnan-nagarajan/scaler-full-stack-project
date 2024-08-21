@@ -33,3 +33,18 @@ code {
     display: flex;
     align-items: center;
 }
+
+.flex-align-start {
+    display: flex;
+    align-items: start;
+}
+
+.flex-gap-8 {
+    display: flex;
+    gap: 8px;
+}
+
+.flex-gap-24 {
+    display: flex;
+    gap: 24px;
+}

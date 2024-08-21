@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { FETCH_PRODUCTS_URL } from "../../constants/endpoints";
 
-const initialState = { list: [] };
+const initialState = { list: [], isLoading: 0 };
 
 const productsSlice = createSlice({
     name: "products",
@@ -13,15 +13,24 @@ const productsSlice = createSlice({
 
             state.list = payload;
         },
+        loadingStarted(state) {
+            state.isLoading++;
+        },
+        loadingEnded(state) {
+            state.isLoading--;
+        },
     },
 });
 
-export const { loadProducts } = productsSlice.actions;
+export const { loadProducts, loadingStarted, loadingEnded } =
+    productsSlice.actions;
 
 export default productsSlice.reducer;
 
 export const fetchProducts = () => (dispatch) => {
-    return fetch(FETCH_PRODUCTS_URL)
+    dispatch(loadingStarted());
+
+    fetch(FETCH_PRODUCTS_URL)
         .then((res) => {
             if (res.ok) {
                 return res.json();
@@ -30,5 +39,6 @@ export const fetchProducts = () => (dispatch) => {
             throw new Error("Failed to fetch categories");
         })
         .then((data) => dispatch(loadProducts(data)))
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
+        .finally(() => dispatch(loadingEnded()));
 };
