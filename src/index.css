@@ -12,6 +12,10 @@ code {
         monospace;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 /* Flex */
 
 .flex-column {
@@ -47,4 +51,26 @@ code {
 .flex-gap-24 {
     display: flex;
     gap: 24px;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-no-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* Text */
+
+.text-align-center {
+    text-align: center;
+}
+
+/* Cursor */
+
+.cursor-pointer {
+    cursor: pointer;
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchProducts } from "../../store/products";
-import ProductCard from "../productCard";
+import Category from "../category";
 
 import styles from "./index.module.scss";
 
@@ -19,6 +19,28 @@ function Products() {
         }
     }, []);
 
+    const getCategorizedProducts = () => {
+        const categoriesMap = {};
+
+        products.forEach((product) => {
+            if (!categoriesMap[product.category]) {
+                categoriesMap[product.category] = [];
+            }
+
+            categoriesMap[product.category].push(product);
+        });
+
+        const categoryArr = Object.keys(categoriesMap);
+
+        return categoryArr.map((category) => (
+            <Category
+                key={category}
+                category={category}
+                products={categoriesMap[category]}
+            />
+        ));
+    };
+
     if (isProductsLoading) {
         return (
             <div className="flex-justify-center">
@@ -31,13 +53,7 @@ function Products() {
         );
     }
 
-    return (
-        <div>
-            {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-            ))}
-        </div>
-    );
+    return <div className="flex-column">{getCategorizedProducts()}</div>;
 }
 
 export default Products;

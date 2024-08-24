@@ -1,0 +1,21 @@
+.container {
+    padding: 16px 32px;
+    gap: 32px;
+}
+
+.category-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.products-container {
+    gap: 32px;
+    padding: 8px;
+    overflow: auto;
+
+    & > * {
+        flex-basis: 440px;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}

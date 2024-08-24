@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
+import { HOME } from "../../constants/path";
 
 function NotFound() {
-    return <div>Not Found !</div>;
+    const history = useHistory();
+
+    useEffect(() => {
+        const timeoutHandle = setTimeout(() => {
+            history.push(HOME);
+        }, 2000);
+
+        return () => {
+            clearTimeout(timeoutHandle);
+        };
+    }, []);
+
+    return (
+        <div className="text-align-center">
+            Not Found ! Redirecting to home.
+        </div>
+    );
 }
 
 export default NotFound;

@@ -15,7 +15,7 @@ function Cart() {
     }
 
     return (
-        <div>
+        <div className={`${styles["container"]} flex-wrap`}>
             {cartItems.map((product) => {
                 return <ProductCard key={product.id} product={product} />;
             })}

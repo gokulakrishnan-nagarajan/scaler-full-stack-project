@@ -1,0 +1,26 @@
+.container {
+    width: 400px;
+
+    &:hover {
+        .img-nav-prev,
+        .img-nav-next {
+            visibility: visible;
+        }
+    }
+}
+
+.img-nav-prev,
+.img-nav-next {
+    padding: 20px;
+    visibility: hidden;
+    flex-grow: 1;
+}
+
+.img-container {
+    flex-grow: 1;
+}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+}
