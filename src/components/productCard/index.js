@@ -22,12 +22,14 @@ function ProductCard(props) {
 
     return (
         <div className={`${styles["container"]} flex-align-start flex-gap-24`}>
-            <img
-                className={`${styles["img"]} cursor-pointer`}
-                src={images[0]}
-                alt={title}
-                onClick={onProductClick}
-            />
+            <div className={styles["img-container"]}>
+                <img
+                    className={`${styles["img"]} cursor-pointer`}
+                    src={images[0]}
+                    alt={title}
+                    onClick={onProductClick}
+                />
+            </div>
             <div className={"flex-column flex-gap-8"}>
                 <div
                     className={`${styles["title"]} cursor-pointer`}
