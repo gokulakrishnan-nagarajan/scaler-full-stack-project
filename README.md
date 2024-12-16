@@ -1,6 +1,17 @@
-# Getting Started with Create React App and Redux
+# About
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+-   This is the frontend part of a sample e-commerce application.
+-   It takes product data from an [API](https://602fc537a1e9d20017af105e.mockapi.io/api/v1/products) and displays products grouped by category
+-   It supports search & filter
+-   User can add items to the cart
+-   The cart page displays all the products added
+
+# Steps to run the application locally
+
+-   Clone this repo
+-   Install Node.js 16.x
+-   Run `npm install` to install the dependencies
+-   Run `npm start` to run the application
 
 ## Available Scripts
 
