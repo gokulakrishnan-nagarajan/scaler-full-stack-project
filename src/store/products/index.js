@@ -36,7 +36,7 @@ export const fetchProducts = () => (dispatch) => {
                 return res.json();
             }
 
-            throw new Error("Failed to fetch categories");
+            throw new Error("Failed to fetch products");
         })
         .then((data) => dispatch(loadProducts(data)))
         .catch((err) => console.error(err))
