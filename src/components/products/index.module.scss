@@ -3,3 +3,90 @@
     width: 60px;
     height: 60px;
 }
+
+.container {
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.search-filter-container {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 20px;
+    width: 280px;
+    padding: 24px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    input {
+        flex-grow: 1;
+        padding: 4px 8px;
+    }
+}
+
+.filter-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.filter-title {
+    font-weight: bold;
+}
+
+.clear-btn,
+.reset-btn {
+    background: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.clear-btn {
+    padding: 2px;
+    color: #fff;
+    background: #999;
+    border-radius: 50%;
+
+    &:hover {
+        color: #333;
+        background: #ddd;
+    }
+
+    &:active {
+        color: #fff;
+        background: #999;
+    }
+}
+
+.reset-btn {
+    color: #999;
+
+    &:hover {
+        color: #ccc;
+    }
+
+    &:active {
+        color: #999;
+    }
+}
+
+.products-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.product-count {
+    padding: 16px 32px;
+}
