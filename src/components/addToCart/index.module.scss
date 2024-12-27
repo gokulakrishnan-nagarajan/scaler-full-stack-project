@@ -1,5 +1,19 @@
 .add-to-cart {
     width: 100px;
+    height: 28px;
+}
+
+.inc-btn,
+.dec-btn {
+    width: 28px;
+    height: 28px;
+    margin: 0px 4px;
+    padding: 0px;
+    color: #090;
+    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 .quantity {

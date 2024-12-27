@@ -24,17 +24,24 @@ function AddToCart(props) {
 
     if (!quantity) {
         return (
-            <button className={styles["add-to-cart"]} onClick={increment}>
+            <button
+                className={`${styles["add-to-cart"]} green-btn-outlined`}
+                onClick={increment}
+            >
                 Add To Cart
             </button>
         );
     }
 
     return (
-        <div>
-            <button onClick={decrement}>-</button>
+        <div className="flex-align-center">
+            <button className={styles["dec-btn"]} onClick={decrement}>
+                -
+            </button>
             <span className={styles["quantity"]}>{quantity}</span>
-            <button onClick={increment}>+</button>
+            <button className={styles["inc-btn"]} onClick={increment}>
+                +
+            </button>
         </div>
     );
 }

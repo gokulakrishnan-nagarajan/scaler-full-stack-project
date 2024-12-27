@@ -3,12 +3,30 @@
 }
 
 .container {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.items-container {
+    align-content: flex-start;
+    flex-grow: 1;
     gap: 32px;
     padding: 32px;
+    overflow: auto;
 
     & > * {
         flex-basis: 440px;
         flex-grow: 0;
         flex-shrink: 0;
     }
+}
+
+.actions-container {
+    flex-shrink: 0;
+    height: 80px;
+}
+
+.checkout-btn {
+    width: 160px;
+    height: 32px;
 }

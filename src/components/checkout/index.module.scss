@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+
+    table {
+        border: 2px solid #000;
+        border-collapse: collapse;
+
+        tfoot {
+            td {
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+
+        th,
+        td {
+            padding: 6px 12px;
+            border: 1px solid #666;
+        }
+
+        td {
+            color: #333;
+            font-size: 14px;
+        }
+
+        td:not(:first-child) {
+            text-align: right;
+        }
+    }
+}
