@@ -5,6 +5,7 @@ import LoopIcon from "@mui/icons-material/Loop";
 
 import { fetchProducts } from "../../store/products";
 import Category from "../category";
+import Loader from "../loader";
 import { DEFAULT_MAX_RATING } from "../../constants/rating";
 import { PRICE_FILTER_CONFIG } from "../../constants/filter";
 import {
@@ -282,15 +283,7 @@ function Products() {
     };
 
     if (isProductsLoading) {
-        return (
-            <div className="flex-justify-center">
-                <img
-                    className={styles.loader}
-                    alt="loading"
-                    src="https://i.gifer.com/ZKZg.gif"
-                />
-            </div>
-        );
+        return <Loader />;
     }
 
     return (
