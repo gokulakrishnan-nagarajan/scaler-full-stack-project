@@ -5,6 +5,7 @@
 -   It supports search & filter
 -   User can add items to the cart
 -   The cart page displays all the products added
+-   The checkout page shows the summary of items and total sum to pay
 
 # Steps to run the application locally
 
