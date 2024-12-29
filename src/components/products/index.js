@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ClearIcon from "@mui/icons-material/Clear";
 import LoopIcon from "@mui/icons-material/Loop";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import { fetchProducts } from "../../store/products";
 import Category from "../category";
@@ -20,6 +22,7 @@ import styles from "./index.module.scss";
 function Products() {
     const dispatch = useDispatch();
 
+    const [showSearch, setShowSearch] = useState(true);
     const [searchText, setSearchText] = useState("");
     const [categories, setCategories] = useState([]);
     const [categoryFilter, setCategoryFilter] = useState({});
@@ -288,20 +291,40 @@ function Products() {
 
     return (
         <div className={styles["container"]}>
-            <div className={styles["search-filter-container"]}>
-                <div className={styles["search-container"]}>
-                    <input
-                        placeholder="Search"
-                        value={searchText}
-                        onChange={onSearchTextChange}
-                    />
-                    <ClearIcon
-                        className={styles["clear-btn"]}
-                        fontSize="32"
-                        onClick={resetSearch}
-                    />
+            <div
+                className={`${styles["search-filter-container"]} ${
+                    !showSearch ? styles["collapse"] : ""
+                }`}
+            >
+                <div className={styles["search-filter-toggle"]}>
+                    <button
+                        className={styles["search-filter-toggle-btn"]}
+                        onClick={() => setShowSearch(!showSearch)}
+                    >
+                        {showSearch ? (
+                            <ChevronLeftIcon />
+                        ) : (
+                            <ChevronRightIcon />
+                        )}
+                    </button>
                 </div>
-                {renderFilters()}
+                {showSearch && (
+                    <>
+                        <div className={styles["search-container"]}>
+                            <input
+                                placeholder="Search"
+                                value={searchText}
+                                onChange={onSearchTextChange}
+                            />
+                            <ClearIcon
+                                className={styles["clear-btn"]}
+                                fontSize="32"
+                                onClick={resetSearch}
+                            />
+                        </div>
+                        {renderFilters()}
+                    </>
+                )}
             </div>
             <div className={styles["products-container"]}>
                 <div className={styles["product-count"]}>
