@@ -47,7 +47,14 @@ function App() {
                             element={<ProductDetailsPage />}
                         />
                         <Route path={WISHLIST} element={<WishlistPage />} />
-                        <Route path={CART} element={<CartPage />} />
+                        <Route
+                            path={CART}
+                            element={
+                                <ProtectedRoute>
+                                    <CartPage />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route path={CHECKOUT} element={<CheckoutPage />} />
                         <Route element={<NotFound />} />
                     </Routes>

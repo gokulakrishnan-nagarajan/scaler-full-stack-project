@@ -1,10 +1,20 @@
 // export const FETCH_PRODUCTS_URL =
 //     "https://602fc537a1e9d20017af105e.mockapi.io/api/v1/products";
 
-export const FETCH_PRODUCTS_URL = "/api/products/all";
+// User
 
 export const REGISTER_URL = "/api/user/register";
 
 export const LOGIN_URL = "/api/user/login";
 
 export const USER_DETAILS_URL = "/api/user/details";
+
+// Products
+
+export const FETCH_PRODUCTS_URL = "/api/products/all";
+
+// Cart
+
+export const FETCH_CART_URL = "/api/cart/all";
+
+export const UPDATE_CART_URL = "/api/cart/product";

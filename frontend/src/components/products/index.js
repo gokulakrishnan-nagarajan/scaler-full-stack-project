@@ -7,6 +7,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Tooltip from "@mui/material/Tooltip";
 
 import { fetchProducts } from "../../store/products";
+import { fetchCart } from "../../store/cart";
 import Category from "../category";
 import Loader from "../loader";
 import { DEFAULT_MAX_RATING } from "../../constants/rating";
@@ -34,12 +35,19 @@ function Products() {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const { list: products, isLoading: isProductsLoading } = useSelector(
-        (state) => state.products || {}
+        (state) => state.products || []
+    );
+    const { items: cart, isLoading: isCartLoading } = useSelector(
+        (state) => state.cart || {}
     );
 
     useEffect(() => {
         if (!products.length) {
             dispatch(fetchProducts());
+        }
+
+        if (!Object.keys(cart).length) {
+            dispatch(fetchCart());
         }
     }, []);
 
@@ -290,7 +298,7 @@ function Products() {
         ));
     };
 
-    if (isProductsLoading) {
+    if (isProductsLoading || isCartLoading) {
         return <Loader />;
     }
 

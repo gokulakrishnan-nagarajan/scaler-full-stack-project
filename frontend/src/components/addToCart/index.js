@@ -1,25 +1,30 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addToCart, removeFromCart } from "../../store/cart";
+import { updateCart } from "../../store/cart";
 
 import styles from "./index.module.scss";
 
 function AddToCart(props) {
     const { product } = props;
+    const { id: productId } = product || {};
 
     const dispatch = useDispatch();
 
     const quantity = useSelector((state) => {
-        return state.cart.items[product.id]?.quantity || 0;
+        return state.cart.items[productId] || 0;
     });
 
     const increment = () => {
-        dispatch(addToCart(product));
+        const payload = { productId, quantity: quantity + 1 };
+
+        dispatch(updateCart(payload));
     };
 
     const decrement = () => {
-        dispatch(removeFromCart(product));
+        const payload = { productId, quantity: quantity - 1 };
+
+        dispatch(updateCart(payload));
     };
 
     if (!quantity) {
