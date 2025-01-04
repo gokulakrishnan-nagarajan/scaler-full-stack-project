@@ -1,12 +1,13 @@
 const express = require("express");
 
 const ProductModel = require("../../db/models/products");
+const authMiddleware = require("../../middlewares/authentication");
 
 const router = express.Router();
 
 // Get products
 
-router.get("/all", async (req, res) => {
+router.get("/all", authMiddleware, async (req, res) => {
     try {
         const products = await ProductModel.find();
 
