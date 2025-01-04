@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AddToCart from "../addToCart";
 import Rating from "../rating";
@@ -11,13 +11,13 @@ import styles from "./index.module.scss";
 function ProductCard(props) {
     const { product } = props;
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { id, title, brand, price, rating, images } = product || {};
     const { count: ratingCount, value: ratingValue } = rating || {};
 
     const onProductClick = () => {
-        history.push(`${PRODUCT}/${id}`);
+        navigate(`${PRODUCT}/${id}`);
     };
 
     return (

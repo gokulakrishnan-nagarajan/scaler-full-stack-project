@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { CHECKOUT } from "../../constants/path";
 import ProductCard from "../productCard";
@@ -8,14 +8,14 @@ import ProductCard from "../productCard";
 import styles from "./index.module.scss";
 
 function Cart() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const cart = useSelector((state) => state.cart.items);
 
     const cartItems = Object.values(cart);
 
     const onCheckoutClick = () => {
-        history.push(CHECKOUT);
+        navigate(CHECKOUT);
     };
 
     if (!cartItems.length) {
@@ -33,7 +33,7 @@ function Cart() {
                 className={`${styles["actions-container"]} flex-align-center flex-justify-center`}
             >
                 <button
-                    className={`${styles["checkout-btn"]} green-btn-outlined`}
+                    className={`${styles["checkout-btn"]} btn-outlined green-btn`}
                     onClick={onCheckoutClick}
                 >
                     Proceed to checkout

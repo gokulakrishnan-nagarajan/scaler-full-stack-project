@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { HOME } from "../../constants/path";
 
 function NotFound() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const timeoutHandle = setTimeout(() => {
-            history.push(HOME);
+            navigate(HOME);
         }, 2000);
 
         return () => {

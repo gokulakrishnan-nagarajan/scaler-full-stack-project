@@ -4,6 +4,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import LoopIcon from "@mui/icons-material/Loop";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import Tooltip from "@mui/material/Tooltip";
 
 import { fetchProducts } from "../../store/products";
 import Category from "../category";
@@ -51,11 +52,11 @@ function Products() {
             categoryMap[category] = true;
         });
 
-        const brandArr = Object.keys(brandMap);
+        const brandArr = Object.keys(brandMap).sort();
 
         setBrands(brandArr);
 
-        const categoryArr = Object.keys(categoryMap);
+        const categoryArr = Object.keys(categoryMap).sort();
 
         setCategories(categoryArr);
     }, [products]);
@@ -249,13 +250,17 @@ function Products() {
                 <div key={label}>
                     <div className={styles["filter-title-container"]}>
                         <span className={styles["filter-title"]}>{label}</span>
-                        <LoopIcon
-                            className={styles["reset-btn"]}
-                            fontSize="32"
-                            onClick={onClick}
-                        />
+                        <Tooltip title="Reset">
+                            <LoopIcon
+                                className={styles["reset-btn"]}
+                                fontSize="32"
+                                onClick={onClick}
+                            />
+                        </Tooltip>
                     </div>
-                    <div>{render()}</div>
+                    <div className={styles["filter-options-container"]}>
+                        {render()}
+                    </div>
                 </div>
             );
         });

@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+.form {
+    width: 340px;
+    padding: 32px;
+    gap: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px #999;
+
+    input {
+        width: 100%;
+    }
+}
+
+.submit-btn {
+    width: 100px;
+    height: 32px;
+    margin-top: 12px;
+}
+
+.register-container {
+    font-size: 14px;
+
+    span {
+        color: #33f;
+        text-decoration: underline;
+    }
+}

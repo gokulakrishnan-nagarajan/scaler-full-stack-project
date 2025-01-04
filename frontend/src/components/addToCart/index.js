@@ -25,7 +25,7 @@ function AddToCart(props) {
     if (!quantity) {
         return (
             <button
-                className={`${styles["add-to-cart"]} green-btn-outlined`}
+                className={`${styles["add-to-cart"]} btn-outlined green-btn`}
                 onClick={increment}
             >
                 Add To Cart

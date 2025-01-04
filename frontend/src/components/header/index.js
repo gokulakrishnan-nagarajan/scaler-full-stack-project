@@ -1,43 +1,84 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-import { CART, HOME } from "../../constants/path";
+import { CART, HOME, LOGIN, WISHLIST } from "../../constants/path";
+import { logoutUser } from "../../store/user";
 
 import styles from "./index.module.scss";
 
 function Header() {
-    const history = useHistory();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const cart = useSelector((state) => state.cart.items);
+    const userDetails = useSelector((state) => state.user.details);
 
-    const cartItems = Object.values(cart);
+    const { name = "" } = userDetails || {};
+    const firstName = name.split(" ")[0];
 
     const onHomeClick = () => {
-        history.push(HOME);
+        navigate(HOME);
+    };
+
+    const onWishlistClick = () => {
+        navigate(WISHLIST);
     };
 
     const onCartClick = () => {
-        history.push(CART);
+        navigate(CART);
+    };
+
+    const onSignOutClick = () => {
+        dispatch(logoutUser());
+
+        navigate(LOGIN);
+    };
+
+    const renderUserSection = () => {
+        if (!userDetails) {
+            return;
+        }
+
+        return (
+            <>
+                <div>Hi {firstName}</div>|
+                <Tooltip title="Wishlist">
+                    <FavoriteIcon
+                        className="cursor-pointer"
+                        onClick={onWishlistClick}
+                    />
+                </Tooltip>
+                <Tooltip title="Cart">
+                    <ShoppingCartIcon
+                        className="cursor-pointer"
+                        onClick={onCartClick}
+                    />
+                </Tooltip>
+                <Tooltip title="Sign Out">
+                    <ExitToAppIcon
+                        className="cursor-pointer"
+                        onClick={onSignOutClick}
+                    />
+                </Tooltip>
+            </>
+        );
     };
 
     return (
-        <div className={`${styles["container"]} flex-justify-space-between`}>
+        <div
+            className={`${styles["container"]} flex-align-center flex-justify-space-between`}
+        >
             <div className={styles["left-section"]}>
-                <div
-                    className="cursor-pointer flex-align-center"
-                    onClick={onHomeClick}
-                >
+                <div className="cursor-pointer" onClick={onHomeClick}>
                     eComm
                 </div>
             </div>
-            <div className={styles["right-section"]}>
-                <div
-                    className="cursor-pointer flex-align-center"
-                    onClick={onCartClick}
-                >
-                    Cart ({cartItems.length})
-                </div>
+            <div className={`${styles["right-section"]} flex-align-center`}>
+                {renderUserSection()}
             </div>
         </div>
     );
