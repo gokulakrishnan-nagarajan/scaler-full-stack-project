@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import PersonIcon from "@mui/icons-material/Person";
 
 import { CART, HOME, LOGIN, WISHLIST } from "../../constants/path";
 import { logoutUser } from "../../store/user";
@@ -45,7 +46,11 @@ function Header() {
 
         return (
             <>
-                <div>Hi {firstName}</div>|
+                <div className={`${styles["user-details"]} flex-align-center`}>
+                    <PersonIcon fontSize="large" />
+                    <span>{firstName}</span>
+                </div>
+                <span>|</span>
                 <Tooltip title="Wishlist">
                     <FavoriteIcon
                         className="cursor-pointer"
