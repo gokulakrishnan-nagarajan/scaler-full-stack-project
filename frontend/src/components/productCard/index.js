@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import AddToCart from "../addToCart";
+import AddToWishlist from "../addToWishlist";
 import Rating from "../rating";
 import Price from "../price";
 import { PRODUCT } from "../../constants/path";
@@ -40,7 +41,12 @@ function ProductCard(props) {
                 <div className={styles["brand"]}>{brand}</div>
                 <Price price={price} />
                 <Rating rating={ratingValue} count={ratingCount} />
-                <AddToCart product={product} />
+                <div
+                    className={`${styles["actions-container"]} flex-align-center`}
+                >
+                    <AddToWishlist product={product} />
+                    <AddToCart product={product} />
+                </div>
             </div>
         </div>
     );

@@ -18,3 +18,9 @@ export const FETCH_PRODUCTS_URL = "/api/products/all";
 export const FETCH_CART_URL = "/api/cart/all";
 
 export const UPDATE_CART_URL = "/api/cart/product";
+
+// Wishlist
+
+export const FETCH_WISHLIST_URL = "/api/wishlist/all";
+
+export const UPDATE_WISHLIST_URL = "/api/wishlist/product";

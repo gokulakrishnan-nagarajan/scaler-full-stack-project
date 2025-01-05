@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { fetchProducts } from "../../store/products";
 import { fetchCart } from "../../store/cart";
+import { fetchWishlist } from "../../store/wishlist";
 import Category from "../category";
 import Loader from "../loader";
 import { DEFAULT_MAX_RATING } from "../../constants/rating";
@@ -40,6 +41,9 @@ function Products() {
     const { items: cart, isLoading: isCartLoading } = useSelector(
         (state) => state.cart || {}
     );
+    const { items: wishlist, isLoading: isWishlistLoading } = useSelector(
+        (state) => state.wishlist || {}
+    );
 
     useEffect(() => {
         if (!products.length) {
@@ -48,6 +52,10 @@ function Products() {
 
         if (!Object.keys(cart).length) {
             dispatch(fetchCart());
+        }
+
+        if (!Object.keys(wishlist).length) {
+            dispatch(fetchWishlist());
         }
     }, []);
 
@@ -298,7 +306,7 @@ function Products() {
         ));
     };
 
-    if (isProductsLoading || isCartLoading) {
+    if (isProductsLoading || isCartLoading || isWishlistLoading) {
         return <Loader />;
     }
 

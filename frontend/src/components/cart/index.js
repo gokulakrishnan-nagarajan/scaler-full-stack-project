@@ -9,6 +9,7 @@ import {
 import { CHECKOUT } from "../../constants/path";
 import { fetchProducts } from "../../store/products";
 import { fetchCart } from "../../store/cart";
+import { fetchWishlist } from "../../store/wishlist";
 import ProductCard from "../productCard";
 import Loader from "../loader";
 
@@ -24,6 +25,9 @@ function Cart() {
     const { items: cart, isLoading: isCartLoading } = useSelector(
         (state) => state.cart || {}
     );
+    const { items: wishlist, isLoading: isWishlistLoading } = useSelector(
+        (state) => state.wishlist || {}
+    );
 
     const cartProductIds = Object.keys(cart);
     const cartItems = products.filter(({ id: productId }) =>
@@ -38,9 +42,13 @@ function Cart() {
         if (!Object.keys(cart).length) {
             dispatch(fetchCart());
         }
+
+        if (!Object.keys(wishlist).length) {
+            dispatch(fetchWishlist());
+        }
     }, []);
 
-    if (isProductsLoading || isCartLoading) {
+    if (isProductsLoading || isCartLoading || isWishlistLoading) {
         return <Loader />;
     }
 
