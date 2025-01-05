@@ -44,7 +44,11 @@ function App() {
                         />
                         <Route
                             path={`${PRODUCT}/:productId`}
-                            element={<ProductDetailsPage />}
+                            element={
+                                <ProtectedRoute>
+                                    <ProductDetailsPage />
+                                </ProtectedRoute>
+                            }
                         />
                         <Route
                             path={WISHLIST}

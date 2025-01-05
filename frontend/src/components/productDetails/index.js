@@ -7,6 +7,7 @@ import Features from "../features";
 import Specs from "../specs";
 import ImageCarousel from "../imageCarousel";
 import { HOME } from "../../constants/path";
+import WishlistAndCart from "../wishlistAndCart";
 
 import styles from "./index.module.scss";
 
@@ -31,6 +32,7 @@ function ProductDetails(props) {
                     <div className={styles["brand"]}>{brand}</div>
                     <Price price={price} />
                     <Rating rating={ratingValue} count={ratingCount} />
+                    <WishlistAndCart product={product} />
                     <Features features={features} />
                     <Specs specs={specs} />
                 </div>
