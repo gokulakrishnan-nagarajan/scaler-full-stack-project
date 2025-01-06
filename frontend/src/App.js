@@ -66,7 +66,14 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path={CHECKOUT} element={<CheckoutPage />} />
+                        <Route
+                            path={CHECKOUT}
+                            element={
+                                <ProtectedRoute>
+                                    <CheckoutPage />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route element={<NotFound />} />
                     </Routes>
                 </Suspense>

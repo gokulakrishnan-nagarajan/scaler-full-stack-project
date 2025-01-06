@@ -9,17 +9,22 @@ import {
 import styles from "./index.module.scss";
 
 function Checkout() {
-    const cart = useSelector((state) => state.cart.items);
+    const { list: products } = useSelector((state) => state.products || []);
+    const { items: cart } = useSelector((state) => state.cart || {});
 
-    const cartItems = Object.values(cart);
+    const cartProductIds = Object.keys(cart);
+    const cartItems = products.filter(({ id: productId }) =>
+        cartProductIds.includes(productId)
+    );
 
     if (!cartItems.length) {
         return <div className={styles["cart-empty"]}>Cart is empty !</div>;
     }
 
     const currency = cartItems[0].price.currency;
-    const total = cartItems.reduce((total, { price, quantity }) => {
+    const total = cartItems.reduce((total, { id, price }) => {
         const actualPrice = price.value - price.discount;
+        const quantity = cart[id];
 
         return total + actualPrice * quantity;
     }, 0);
@@ -29,9 +34,10 @@ function Checkout() {
         total.toLocaleString(CURRENY_PUNCTUATION_MAP[currency]);
 
     const renderRows = () => {
-        return cartItems.map(({ id, title, price, quantity }) => {
+        return cartItems.map(({ id, title, price }) => {
             const actualPrice = price.value - price.discount;
             const currencyPunctuation = CURRENY_PUNCTUATION_MAP[price.currency];
+            const quantity = cart[id];
             const total = (actualPrice * quantity).toLocaleString(
                 currencyPunctuation
             );
