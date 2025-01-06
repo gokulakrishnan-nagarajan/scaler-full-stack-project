@@ -1,16 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ClearIcon from "@mui/icons-material/Clear";
 import LoopIcon from "@mui/icons-material/Loop";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Tooltip from "@mui/material/Tooltip";
 
-import { fetchProducts } from "../../store/products";
-import { fetchCart } from "../../store/cart";
-import { fetchWishlist } from "../../store/wishlist";
 import Category from "../category";
-import Loader from "../loader";
 import { DEFAULT_MAX_RATING } from "../../constants/rating";
 import { PRICE_FILTER_CONFIG } from "../../constants/filter";
 import {
@@ -23,8 +19,6 @@ import {
 import styles from "./index.module.scss";
 
 function Products() {
-    const dispatch = useDispatch();
-
     const [showSearch, setShowSearch] = useState(true);
     const [searchText, setSearchText] = useState("");
     const [categories, setCategories] = useState([]);
@@ -35,29 +29,7 @@ function Products() {
     const [ratingFilter, setRatingFilter] = useState({});
     const [filteredProducts, setFilteredProducts] = useState([]);
 
-    const { list: products, isLoading: isProductsLoading } = useSelector(
-        (state) => state.products || []
-    );
-    const { items: cart, isLoading: isCartLoading } = useSelector(
-        (state) => state.cart || {}
-    );
-    const { items: wishlist, isLoading: isWishlistLoading } = useSelector(
-        (state) => state.wishlist || {}
-    );
-
-    useEffect(() => {
-        if (!products.length) {
-            dispatch(fetchProducts());
-        }
-
-        if (!Object.keys(cart).length) {
-            dispatch(fetchCart());
-        }
-
-        if (!Object.keys(wishlist).length) {
-            dispatch(fetchWishlist());
-        }
-    }, []);
+    const { list: products } = useSelector((state) => state.products || []);
 
     useEffect(() => {
         const brandMap = {};
@@ -305,10 +277,6 @@ function Products() {
             />
         ));
     };
-
-    if (isProductsLoading || isCartLoading || isWishlistLoading) {
-        return <Loader />;
-    }
 
     return (
         <div className={styles["container"]}>

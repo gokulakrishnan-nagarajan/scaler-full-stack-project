@@ -1,18 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
+import { HOME } from "../../constants/path";
 import Price from "../price";
 import Rating from "../rating";
 import Features from "../features";
 import Specs from "../specs";
 import ImageCarousel from "../imageCarousel";
-import { HOME } from "../../constants/path";
 import WishlistAndCart from "../wishlistAndCart";
 
 import styles from "./index.module.scss";
 
-function ProductDetails(props) {
-    const { product } = props;
+function ProductDetails() {
+    const params = useParams();
+    const { productId } = params;
+
+    const product = useSelector((state) =>
+        state.products.list.find((product) => product.id === productId)
+    );
+
+    if (!product) {
+        return <div className="text-align-center">Product not found !</div>;
+    }
 
     const { title, brand, category, price, rating, features, specs } =
         product || {};

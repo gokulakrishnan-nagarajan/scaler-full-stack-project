@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -7,50 +7,20 @@ import {
     CURRENY_PUNCTUATION_MAP,
 } from "../../constants/currency";
 import { CHECKOUT } from "../../constants/path";
-import { fetchProducts } from "../../store/products";
-import { fetchCart } from "../../store/cart";
-import { fetchWishlist } from "../../store/wishlist";
 import ProductCard from "../productCard";
-import Loader from "../loader";
 
 import styles from "./index.module.scss";
 
 function Cart() {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { list: products, isLoading: isProductsLoading } = useSelector(
-        (state) => state.products || []
-    );
-    const { items: cart, isLoading: isCartLoading } = useSelector(
-        (state) => state.cart || {}
-    );
-    const { items: wishlist, isLoading: isWishlistLoading } = useSelector(
-        (state) => state.wishlist || {}
-    );
+    const { list: products } = useSelector((state) => state.products || []);
+    const { items: cart } = useSelector((state) => state.cart || {});
 
     const cartProductIds = Object.keys(cart);
     const cartItems = products.filter(({ id: productId }) =>
         cartProductIds.includes(productId)
     );
-
-    useEffect(() => {
-        if (!products.length) {
-            dispatch(fetchProducts());
-        }
-
-        if (!Object.keys(cart).length) {
-            dispatch(fetchCart());
-        }
-
-        if (!Object.keys(wishlist).length) {
-            dispatch(fetchWishlist());
-        }
-    }, []);
-
-    if (isProductsLoading || isCartLoading || isWishlistLoading) {
-        return <Loader />;
-    }
 
     if (!cartItems.length) {
         return <div className={styles["cart-empty"]}>Cart is empty !</div>;
