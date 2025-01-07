@@ -6,6 +6,8 @@ import {
     USER_DETAILS_URL,
 } from "../../constants/endpoints";
 import axiosInstance from "../../axios";
+import { NOTIFICATION_TYPE } from "../../constants/notification";
+import { setNotificationMessage } from "../notification";
 
 const initialState = {
     isRegistering: 0,
@@ -59,9 +61,27 @@ export const register = (payload) => (dispatch) => {
 
     return axiosInstance
         .post(REGISTER_URL, payload)
-        .then(() => {})
+        .then((res) => {
+            const { message, type } = res?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+
+            return res;
+        })
         .catch((err) => {
-            console.error(err);
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
 
             throw err;
         })
@@ -73,13 +93,29 @@ export const login = (payload) => (dispatch) => {
 
     return axiosInstance
         .post(LOGIN_URL, payload)
-        .then((data) => {
-            const authToken = data.data.token;
+        .then((res) => {
+            const { message, type, token } = res?.data || {};
 
-            localStorage.setItem("authToken", authToken);
+            localStorage.setItem("authToken", token);
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+
+            return res;
         })
         .catch((err) => {
-            console.error(err);
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
 
             throw err;
         })
@@ -91,15 +127,24 @@ export const getUserDetails = () => (dispatch) => {
 
     return axiosInstance
         .get(USER_DETAILS_URL)
-        .then((data) => {
-            const details = data.data.data;
+        .then((res) => {
+            const details = res?.data?.data;
 
             dispatch(setUserDetails(details));
+
+            return res;
         })
         .catch((err) => {
-            console.error(err);
+            const { message, type } = err?.response?.data || {};
 
             dispatch(setUserDetails(null));
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
 
             throw err;
         })
@@ -110,4 +155,11 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem("authToken");
 
     dispatch(setUserDetails(null));
+
+    dispatch(
+        setNotificationMessage({
+            message: "User logged out successfully",
+            type: NOTIFICATION_TYPE.INFO,
+        })
+    );
 };

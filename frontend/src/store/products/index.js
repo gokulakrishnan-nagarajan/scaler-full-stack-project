@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { FETCH_PRODUCTS_URL } from "../../constants/endpoints";
 import axiosInstance from "../../axios";
+import { setNotificationMessage } from "../notification";
 
 const initialState = { list: [], isLoading: 0 };
 
@@ -33,11 +34,20 @@ export const fetchProducts = () => (dispatch) => {
 
     axiosInstance
         .get(FETCH_PRODUCTS_URL)
-        .then((data) => {
-            const products = data.data.data;
+        .then((res) => {
+            const products = res?.data?.data;
 
             dispatch(loadProducts(products));
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+        })
         .finally(() => dispatch(loadingEnded()));
 };

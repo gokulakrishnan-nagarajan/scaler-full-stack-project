@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import axiosInstance from "../../axios";
 import { FETCH_CART_URL, UPDATE_CART_URL } from "../../constants/endpoints";
+import { setNotificationMessage } from "../notification";
 
 const initialState = { items: {}, isLoading: 0, isUpdating: 0 };
 
@@ -47,7 +48,16 @@ export const fetchCart = () => (dispatch) => {
 
             dispatch(setCart(cartObj));
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+        })
         .finally(() => dispatch(loadingEnded()));
 };
 
@@ -61,6 +71,15 @@ export const updateCart = (payload) => (dispatch) => {
 
             dispatch(setCart(cartObj));
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+        })
         .finally(() => dispatch(updateEnded()));
 };

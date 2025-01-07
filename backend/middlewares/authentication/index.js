@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+const { NOTIFICATION_TYPE } = require("../../constants/notification");
+
 const authMiddleware = async (req, res, next) => {
     try {
         const jwtToken = req.headers.authorization.split(" ")[1];
@@ -13,7 +15,8 @@ const authMiddleware = async (req, res, next) => {
 
         res.status(401).send({
             success: false,
-            message: "Authentication failed.",
+            message: "Authentication failed",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 };

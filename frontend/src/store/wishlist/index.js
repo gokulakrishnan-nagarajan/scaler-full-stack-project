@@ -5,6 +5,7 @@ import {
     FETCH_WISHLIST_URL,
     UPDATE_WISHLIST_URL,
 } from "../../constants/endpoints";
+import { setNotificationMessage } from "../notification";
 
 const initialState = { items: {}, isLoading: 0, isUpdating: 0 };
 
@@ -50,7 +51,16 @@ export const fetchWishlist = () => (dispatch) => {
 
             dispatch(setWishlist(wishlistObj));
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+        })
         .finally(() => dispatch(loadingEnded()));
 };
 
@@ -64,6 +74,17 @@ export const updateWishlist = (payload) => (dispatch) => {
 
             dispatch(setWishlist(wishlistObj));
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            console.log(err);
+
+            const { message, type } = err?.response?.data || {};
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
+        })
         .finally(() => dispatch(updateEnded()));
 };

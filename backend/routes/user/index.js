@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const UserModel = require("../../db/models/users");
 const authMiddleware = require("../../middlewares/authentication");
+const { NOTIFICATION_TYPE } = require("../../constants/notification");
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.post("/register", async (req, res) => {
             res.send({
                 success: true,
                 message: "User already registered. Please login.",
+                type: NOTIFICATION_TYPE.INFO,
             });
         } else {
             const salt = bcrypt.genSaltSync();
@@ -33,6 +35,7 @@ router.post("/register", async (req, res) => {
             res.send({
                 success: true,
                 message: "User successfully registered. Please login.",
+                type: NOTIFICATION_TYPE.SUCCESS,
             });
         }
     } catch (err) {
@@ -41,6 +44,7 @@ router.post("/register", async (req, res) => {
         res.status(400).send({
             success: false,
             message: "User registration failed. Please try again.",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 });
@@ -57,6 +61,7 @@ router.post("/login", async (req, res) => {
             res.status(400).send({
                 success: false,
                 message: "User not found. Please register.",
+                type: NOTIFICATION_TYPE.WARNING,
             });
         } else {
             const isPasswordSame = bcrypt.compareSync(password, user.password);
@@ -72,13 +77,15 @@ router.post("/login", async (req, res) => {
 
                 res.send({
                     success: true,
-                    message: "Logged in successfully.",
+                    message: "Logged in successfully",
+                    type: NOTIFICATION_TYPE.SUCCESS,
                     token: jwtToken,
                 });
             } else {
                 res.status(400).send({
                     success: false,
-                    message: "Incorrect password.",
+                    message: "Incorrect password",
+                    type: NOTIFICATION_TYPE.ERROR,
                 });
             }
         }
@@ -88,6 +95,7 @@ router.post("/login", async (req, res) => {
         res.status(400).send({
             success: false,
             message: "Log in failed. Please try again.",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 });
@@ -103,6 +111,7 @@ router.get("/details", authMiddleware, async (req, res) => {
         res.send({
             success: true,
             message: "User details fetched successfully",
+            type: NOTIFICATION_TYPE.SUCCESS,
             data: user,
         });
     } catch (err) {
@@ -110,7 +119,8 @@ router.get("/details", authMiddleware, async (req, res) => {
 
         res.status(400).send({
             success: false,
-            message: "User details fetch failed.",
+            message: "User details fetch failed",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 });

@@ -2,6 +2,7 @@ const express = require("express");
 
 const CartModel = require("../../db/models/cart");
 const authMiddleware = require("../../middlewares/authentication");
+const { NOTIFICATION_TYPE } = require("../../constants/notification");
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.get("/all", authMiddleware, async (req, res) => {
         res.send({
             success: true,
             message: "Cart fetched successfully",
+            type: NOTIFICATION_TYPE.INFO,
             data: products,
         });
     } catch (err) {
@@ -27,6 +29,7 @@ router.get("/all", authMiddleware, async (req, res) => {
         res.status(400).send({
             success: false,
             message: "Cart fetch failed. Please try again.",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 });
@@ -65,6 +68,7 @@ router.post("/product", authMiddleware, async (req, res) => {
         res.send({
             success: true,
             message: "Cart updated successfully",
+            type: NOTIFICATION_TYPE.SUCCESS,
             data: products,
         });
     } catch (err) {
@@ -73,6 +77,7 @@ router.post("/product", authMiddleware, async (req, res) => {
         res.status(400).send({
             success: false,
             message: "Cart update failed. Please try again.",
+            type: NOTIFICATION_TYPE.ERROR,
         });
     }
 });

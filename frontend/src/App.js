@@ -1,8 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Header from "./components/header";
-import Loader from "./components/loader";
 import {
     CART,
     CHECKOUT,
@@ -12,9 +10,12 @@ import {
     REGISTER,
     WISHLIST,
 } from "./constants/path";
+import Header from "./components/header";
+import Loader from "./components/loader";
+import Notification from "./components/notification";
+import ProtectedRoute from "./components/protectedRoute";
 
 import "./App.css";
-import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
     const ProductsPage = lazy(() => import("./pages/productsPage"));
@@ -30,6 +31,7 @@ function App() {
         <div className="App flex-column">
             <BrowserRouter>
                 <Header />
+                <Notification />
                 <Suspense fallback={<Loader />}>
                     <Routes>
                         <Route path={REGISTER} element={<RegisterPage />} />
