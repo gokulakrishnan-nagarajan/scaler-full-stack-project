@@ -6,6 +6,7 @@ import {
     CHECKOUT,
     HOME,
     LOGIN,
+    ORDERS,
     PRODUCT,
     REGISTER,
     WISHLIST,
@@ -25,6 +26,8 @@ function App() {
     const RegisterPage = lazy(() => import("./pages/registerPage"));
     const LoginPage = lazy(() => import("./pages/loginPage"));
     const WishlistPage = lazy(() => import("./pages/wishlistPage"));
+    const OrdersPage = lazy(() => import("./pages/ordersPage"));
+    const OrderDetailsPage = lazy(() => import("./pages/orderDetailsPage"));
     const NotFound = lazy(() => import("./pages/notFound"));
 
     return (
@@ -73,6 +76,22 @@ function App() {
                             element={
                                 <ProtectedRoute>
                                     <CheckoutPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path={ORDERS}
+                            element={
+                                <ProtectedRoute>
+                                    <OrdersPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path={`${ORDERS}/:orderId`}
+                            element={
+                                <ProtectedRoute>
+                                    <OrderDetailsPage />
                                 </ProtectedRoute>
                             }
                         />

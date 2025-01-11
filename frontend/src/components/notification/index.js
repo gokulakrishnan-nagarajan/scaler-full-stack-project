@@ -8,6 +8,12 @@ function Notification() {
 
     const { message, type } = useSelector((state) => state.notification);
 
+    if (!message) {
+        return;
+    }
+
+    const open = !!message;
+
     const onClose = (_, reason) => {
         if (reason === "clickaway") {
             return;
@@ -16,13 +22,9 @@ function Notification() {
         dispatch(setNotificationMessage({}));
     };
 
-    if (!message) {
-        return;
-    }
-
     return (
         <Snackbar
-            open={message}
+            open={open}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             autoHideDuration={3000}
             onClose={onClose}

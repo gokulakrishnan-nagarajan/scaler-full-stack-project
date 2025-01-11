@@ -5,6 +5,7 @@ import productsReducer from "./products";
 import userReducer from "./user";
 import wishlistReducer from "./wishlist";
 import notificationReducer from "./notification";
+import orderReducer from "./order";
 
 export const store = configureStore({
     reducer: {
@@ -13,5 +14,6 @@ export const store = configureStore({
         user: userReducer,
         wishlist: wishlistReducer,
         notification: notificationReducer,
+        order: orderReducer,
     },
 });

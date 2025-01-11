@@ -37,7 +37,7 @@ function ProductDetails() {
                 <div className="">
                     <ImageCarousel product={product} />
                 </div>
-                <div className={"flex-column flex-gap-8"}>
+                <div className={"flex-column flex-gap-12"}>
                     <div className={styles["title"]}>{title}</div>
                     <div className={styles["brand"]}>{brand}</div>
                     <Price price={price} />

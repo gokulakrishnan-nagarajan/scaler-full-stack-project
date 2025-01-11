@@ -13,8 +13,8 @@ function Specs(props) {
         <div>
             <div className={styles["title"]}>Specifications</div>
             <ul>
-                {specs.map((spec) => (
-                    <li>
+                {specs.map((spec, index) => (
+                    <li className={styles["list-item"]} key={index}>
                         {spec.name} - {spec.value}
                     </li>
                 ))}

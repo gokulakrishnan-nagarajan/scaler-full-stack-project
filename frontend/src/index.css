@@ -58,6 +58,11 @@ code {
     gap: 8px;
 }
 
+.flex-gap-12 {
+    display: flex;
+    gap: 12px;
+}
+
 .flex-gap-24 {
     display: flex;
     gap: 24px;
@@ -73,10 +78,24 @@ code {
     flex-wrap: nowrap;
 }
 
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+/* Padding */
+
+.p-24 {
+    padding: 24px;
+}
+
 /* Text */
 
 .text-align-center {
     text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
 }
 
 /* Cursor */

@@ -22,20 +22,27 @@ function DataFetchWrapper(props) {
     );
 
     useEffect(() => {
-        if (!products.length) {
+        if (!products) {
             dispatch(fetchProducts());
         }
 
-        if (!Object.keys(cart).length) {
+        if (!cart) {
             dispatch(fetchCart());
         }
 
-        if (!Object.keys(wishlist).length) {
+        if (!wishlist) {
             dispatch(fetchWishlist());
         }
     }, []);
 
-    if (isProductsLoading || isCartLoading || isWishlistLoading) {
+    if (
+        isProductsLoading ||
+        isCartLoading ||
+        isWishlistLoading ||
+        !products ||
+        !cart ||
+        !wishlist
+    ) {
         return <Loader />;
     }
 

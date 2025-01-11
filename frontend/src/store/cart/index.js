@@ -4,7 +4,7 @@ import axiosInstance from "../../axios";
 import { FETCH_CART_URL, UPDATE_CART_URL } from "../../constants/endpoints";
 import { setNotificationMessage } from "../notification";
 
-const initialState = { items: {}, isLoading: 0, isUpdating: 0 };
+const initialState = { items: null, isLoading: 0, isUpdating: 0 };
 
 const cartSlice = createSlice({
     name: "cart",

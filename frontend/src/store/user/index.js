@@ -137,7 +137,7 @@ export const getUserDetails = () => (dispatch) => {
         .catch((err) => {
             const { message, type } = err?.response?.data || {};
 
-            dispatch(setUserDetails(null));
+            dispatch(logoutUser());
 
             dispatch(
                 setNotificationMessage({

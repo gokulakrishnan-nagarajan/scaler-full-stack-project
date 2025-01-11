@@ -24,3 +24,11 @@ export const UPDATE_CART_URL = "/api/cart/product";
 export const FETCH_WISHLIST_URL = "/api/wishlist/all";
 
 export const UPDATE_WISHLIST_URL = "/api/wishlist/product";
+
+// Orders
+
+export const FETCH_ORDERS_URL = "/api/order";
+
+export const FETCH_ORDER_DETAILS_URL = "/api/order";
+
+export const CREATE_ORDER_URL = "/api/order";

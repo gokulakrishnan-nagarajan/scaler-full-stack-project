@@ -1,14 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
     CURRENCY_MAP,
     CURRENY_PUNCTUATION_MAP,
 } from "../../constants/currency";
+import { createOrder } from "../../store/order";
+import { ORDERS } from "../../constants/path";
+import SummaryTable from "../summaryTable";
 
 import styles from "./index.module.scss";
 
 function Checkout() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { list: products } = useSelector((state) => state.products || []);
     const { items: cart } = useSelector((state) => state.cart || {});
 
@@ -18,7 +25,7 @@ function Checkout() {
     );
 
     if (!cartItems.length) {
-        return <div className={styles["cart-empty"]}>Cart is empty !</div>;
+        return <div className="p-24 text-align-center">Cart is empty !</div>;
     }
 
     const currency = cartItems[0].price.currency;
@@ -33,45 +40,62 @@ function Checkout() {
         " " +
         total.toLocaleString(CURRENY_PUNCTUATION_MAP[currency]);
 
-    const renderRows = () => {
-        return cartItems.map(({ id, title, price }) => {
-            const actualPrice = price.value - price.discount;
-            const currencyPunctuation = CURRENY_PUNCTUATION_MAP[price.currency];
-            const quantity = cart[id];
-            const total = (actualPrice * quantity).toLocaleString(
-                currencyPunctuation
-            );
+    const summary = cartItems.map(({ id, title, price }) => {
+        const currencyPunctuation = CURRENY_PUNCTUATION_MAP[price.currency];
+        const actualPrice = price.value - price.discount;
+        const formattedPrice = actualPrice.toLocaleString(currencyPunctuation);
+        const quantity = cart[id];
+        const total = (actualPrice * quantity).toLocaleString(
+            currencyPunctuation
+        );
 
-            return (
-                <tr key={id}>
-                    <td>{title}</td>
-                    <td>{actualPrice.toLocaleString(currencyPunctuation)}</td>
-                    <td>{quantity}</td>
-                    <td>{total}</td>
-                </tr>
-            );
+        return {
+            productId: id,
+            productName: title,
+            price: formattedPrice,
+            quantity,
+            total,
+        };
+    });
+
+    const onPayClick = () => {
+        const payload = { amount: total, products: [] };
+
+        payload.products = cartItems.map(({ id, title, price }) => {
+            const actualPrice = price.value - price.discount;
+            const quantity = cart[id];
+
+            return {
+                productId: id,
+                productName: title,
+                price: actualPrice,
+                quantity,
+            };
         });
+
+        dispatch(createOrder(payload))
+            .then(({ orderId }) => {
+                navigate(`${ORDERS}/${orderId}`);
+            })
+            .catch();
     };
 
     return (
-        <div className={styles["container"]}>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>{renderRows()}</tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan={3}>Sum to pay</td>
-                        <td>{totalStr}</td>
-                    </tr>
-                </tfoot>
-            </table>
+        <div className={`${styles["container"]} flex-column`}>
+            <div className={`${styles["items-container"]} flex-wrap`}>
+                <SummaryTable summary={summary} />
+            </div>
+            <div
+                className={`${styles["actions-container"]} flex-align-center flex-justify-space-between`}
+            >
+                <span>Total: {totalStr}</span>
+                <button
+                    className={`${styles["pay-btn"]} btn-outlined green-btn`}
+                    onClick={onPayClick}
+                >
+                    Pay
+                </button>
+            </div>
         </div>
     );
 }

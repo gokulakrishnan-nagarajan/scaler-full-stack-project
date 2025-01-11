@@ -23,7 +23,7 @@ function Cart() {
     );
 
     if (!cartItems.length) {
-        return <div className={styles["cart-empty"]}>Cart is empty !</div>;
+        return <div className="p-24 text-align-center">Cart is empty !</div>;
     }
 
     const currency = cartItems[0].price.currency;

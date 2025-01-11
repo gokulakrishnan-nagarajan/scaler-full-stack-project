@@ -13,8 +13,10 @@ function Features(props) {
         <div>
             <div className={styles["title"]}>Features</div>
             <ul>
-                {features.map((feature) => (
-                    <li>{feature}</li>
+                {features.map((feature, index) => (
+                    <li className={styles["list-item"]} key={index}>
+                        {feature}
+                    </li>
                 ))}
             </ul>
         </div>

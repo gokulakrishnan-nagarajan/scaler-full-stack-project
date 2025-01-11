@@ -1,4 +1,4 @@
-export const DEFAULT_CURRENCY = "USD";
+export const DEFAULT_CURRENCY = "INR";
 
 export const CURRENCY_MAP = {
     INR: "₹",

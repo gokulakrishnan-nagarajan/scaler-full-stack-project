@@ -1,36 +1,24 @@
-.cart-empty {
-    margin: 24px;
+.container {
+    flex-grow: 1;
+    overflow: auto;
 }
 
-.container {
-    display: flex;
+.items-container {
     justify-content: center;
+    flex-grow: 1;
+    gap: 32px;
     padding: 32px;
+    overflow: auto;
+}
 
-    table {
-        border: 2px solid #000;
-        border-collapse: collapse;
+.actions-container {
+    flex-shrink: 0;
+    height: 80px;
+    padding: 0px 40px;
+    box-shadow: 0px 0px 10px 0px #ccc;
+}
 
-        tfoot {
-            td {
-                font-size: 16px;
-                font-weight: bold;
-            }
-        }
-
-        th,
-        td {
-            padding: 6px 12px;
-            border: 1px solid #666;
-        }
-
-        td {
-            color: #333;
-            font-size: 14px;
-        }
-
-        td:not(:first-child) {
-            text-align: right;
-        }
-    }
+.pay-btn {
+    width: 160px;
+    height: 32px;
 }

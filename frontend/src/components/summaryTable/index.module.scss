@@ -1,0 +1,21 @@
+.container {
+    table {
+        border: 2px solid #000;
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: 12px 16px;
+            border: 1px solid #666;
+        }
+
+        td {
+            color: #333;
+            font-size: 14px;
+        }
+
+        td:not(:first-child) {
+            text-align: right;
+        }
+    }
+}

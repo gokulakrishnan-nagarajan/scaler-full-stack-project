@@ -16,7 +16,7 @@ function Wishlist() {
 
     if (!wishlistItems.length) {
         return (
-            <div className={styles["wishlist-empty"]}>Wishlist is empty !</div>
+            <div className="p-24 text-align-center">Wishlist is empty !</div>
         );
     }
 

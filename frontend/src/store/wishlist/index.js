@@ -7,7 +7,7 @@ import {
 } from "../../constants/endpoints";
 import { setNotificationMessage } from "../notification";
 
-const initialState = { items: {}, isLoading: 0, isUpdating: 0 };
+const initialState = { items: null, isLoading: 0, isUpdating: 0 };
 
 const wishlistSlice = createSlice({
     name: "wishlist",
@@ -75,8 +75,6 @@ export const updateWishlist = (payload) => (dispatch) => {
             dispatch(setWishlist(wishlistObj));
         })
         .catch((err) => {
-            console.log(err);
-
             const { message, type } = err?.response?.data || {};
 
             dispatch(

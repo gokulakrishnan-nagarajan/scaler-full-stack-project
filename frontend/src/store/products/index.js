@@ -4,7 +4,7 @@ import { FETCH_PRODUCTS_URL } from "../../constants/endpoints";
 import axiosInstance from "../../axios";
 import { setNotificationMessage } from "../notification";
 
-const initialState = { list: [], isLoading: 0 };
+const initialState = { list: null, isLoading: 0 };
 
 const productsSlice = createSlice({
     name: "products",

@@ -6,8 +6,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonIcon from "@mui/icons-material/Person";
+import SellIcon from "@mui/icons-material/Sell";
 
-import { CART, HOME, LOGIN, WISHLIST } from "../../constants/path";
+import { CART, HOME, LOGIN, ORDERS, WISHLIST } from "../../constants/path";
 import { logoutUser } from "../../store/user";
 
 import styles from "./index.module.scss";
@@ -31,6 +32,10 @@ function Header() {
 
     const onCartClick = () => {
         navigate(CART);
+    };
+
+    const onOrdersClick = () => {
+        navigate(ORDERS);
     };
 
     const onSignOutClick = () => {
@@ -61,6 +66,12 @@ function Header() {
                     <ShoppingCartIcon
                         className="cursor-pointer"
                         onClick={onCartClick}
+                    />
+                </Tooltip>
+                <Tooltip title="Orders">
+                    <SellIcon
+                        className="cursor-pointer"
+                        onClick={onOrdersClick}
                     />
                 </Tooltip>
                 <Tooltip title="Sign Out">

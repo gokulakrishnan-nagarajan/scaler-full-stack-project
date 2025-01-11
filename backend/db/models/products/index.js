@@ -1,41 +1,50 @@
 const mongoose = require("mongoose");
 
-const priceSchema = new mongoose.Schema({
-    currency: {
-        type: String,
-        required: true,
+const priceSchema = new mongoose.Schema(
+    {
+        currency: {
+            type: String,
+            required: true,
+        },
+        value: {
+            type: Number,
+            required: true,
+        },
+        discount: {
+            type: Number,
+            required: true,
+        },
     },
-    value: {
-        type: Number,
-        required: true,
-    },
-    discount: {
-        type: Number,
-        required: true,
-    },
-});
+    { _id: false }
+);
 
-const specsSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
+const specsSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        value: {
+            type: String,
+            required: true,
+        },
     },
-    value: {
-        type: String,
-        required: true,
-    },
-});
+    { _id: false }
+);
 
-const ratingSchema = new mongoose.Schema({
-    count: {
-        type: Number,
-        required: true,
+const ratingSchema = new mongoose.Schema(
+    {
+        count: {
+            type: Number,
+            required: true,
+        },
+        value: {
+            type: Number,
+            required: true,
+        },
     },
-    value: {
-        type: Number,
-        required: true,
-    },
-});
+    { _id: false }
+);
 
 const productSchema = new mongoose.Schema(
     {
