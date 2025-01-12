@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 
 import {
     CURRENCY_MAP,
@@ -18,6 +19,10 @@ function Checkout() {
 
     const { list: products } = useSelector((state) => state.products || []);
     const { items: cart } = useSelector((state) => state.cart || {});
+    const { details: userDetails } = useSelector((state) => state.user || {});
+    const { isCreating: isCreatingOrder } = useSelector(
+        (state) => state.order || {}
+    );
 
     const cartProductIds = Object.keys(cart);
     const cartItems = products.filter(({ id: productId }) =>
@@ -35,6 +40,7 @@ function Checkout() {
 
         return total + actualPrice * quantity;
     }, 0);
+    const totalInPaise = total * 100;
     const totalStr =
         CURRENCY_MAP[currency] +
         " " +
@@ -58,10 +64,13 @@ function Checkout() {
         };
     });
 
-    const onPayClick = () => {
-        const payload = { amount: total, products: [] };
+    const handleToken = (token) => {
+        const payload = {
+            payment: { token, amount: totalInPaise },
+            order: { amount: total, products: [] },
+        };
 
-        payload.products = cartItems.map(({ id, title, price }) => {
+        payload.order.products = cartItems.map(({ id, title, price }) => {
             const actualPrice = price.value - price.discount;
             const quantity = cart[id];
 
@@ -89,12 +98,22 @@ function Checkout() {
                 className={`${styles["actions-container"]} flex-align-center flex-justify-space-between`}
             >
                 <span>Total: {totalStr}</span>
-                <button
-                    className={`${styles["pay-btn"]} btn-outlined green-btn`}
-                    onClick={onPayClick}
+                <StripeCheckout
+                    stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                    name="eComm"
+                    description="Order payment"
+                    currency="INR"
+                    email={userDetails.email}
+                    amount={totalInPaise}
+                    token={handleToken}
                 >
-                    Pay
-                </button>
+                    <button
+                        className={`${styles["pay-btn"]} btn-outlined green-btn`}
+                        disabled={isCreatingOrder}
+                    >
+                        {!isCreatingOrder ? "Pay" : "Processing..."}
+                    </button>
+                </StripeCheckout>
             </div>
         </div>
     );

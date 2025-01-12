@@ -119,10 +119,18 @@ export const createOrder = (payload) => (dispatch) => {
 
     return axiosInstance
         .post(FETCH_ORDER_DETAILS_URL, payload)
-        .then((data) => {
-            const { orderDetails, cart } = data.data.data;
+        .then((res) => {
+            const { message, type, data } = res?.data || {};
+            const { orderDetails, cart } = data || {};
 
             dispatch(setCart(cart));
+
+            dispatch(
+                setNotificationMessage({
+                    message,
+                    type,
+                })
+            );
 
             return orderDetails;
         })

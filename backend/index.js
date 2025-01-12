@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+dotenv.config();
+
 const userRouter = require("./routes/user");
 const productsRouter = require("./routes/products");
 const cartRouter = require("./routes/cart");
 const wishlistRouter = require("./routes/wishlist");
 const orderRouter = require("./routes/order");
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.port || 8080;

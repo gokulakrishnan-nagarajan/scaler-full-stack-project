@@ -3,8 +3,10 @@ import axios from "axios";
 import { store } from "../store";
 import { logoutUser } from "../store/user";
 
+const baseURL = process.env.REACT_APP_BASE_URL || window.location.origin;
+
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL,
     headers: {
         "Content-Type": "application/json",
     },

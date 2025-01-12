@@ -1,4 +1,5 @@
 const express = require("express");
+const stripe = require("stripe");
 
 const OrderModel = require("../../db/models/order");
 const OrderDetailsModel = require("../../db/models/orderDetails");
@@ -7,6 +8,7 @@ const authMiddleware = require("../../middlewares/authentication");
 const { NOTIFICATION_TYPE } = require("../../constants/notification");
 
 const router = express.Router();
+const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
 // Get orders
 
@@ -83,8 +85,23 @@ router.get("/:orderId", authMiddleware, async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
     try {
-        const { userId } = req.body;
-        const newOrder = new OrderDetailsModel(req.body);
+        const { userId, payment, order } = req.body;
+
+        // Processing payment
+
+        const charge = await stripeInstance.charges.create({
+            amount: payment.amount,
+            currency: "INR",
+            source: payment.token.id,
+            description: `Payment by ${userId}`,
+        });
+
+        // Create order details
+
+        order.userId = userId;
+        order.transactionId = charge.id;
+
+        const newOrder = new OrderDetailsModel(order);
 
         const result = await newOrder.save();
         const { _id, amount, products, createdAt } = result;
@@ -95,6 +112,8 @@ router.post("/", authMiddleware, async (req, res) => {
             products,
             createdAt,
         };
+
+        // Add order details to user orders
 
         await OrderModel.findOneAndUpdate(
             {
@@ -107,6 +126,8 @@ router.post("/", authMiddleware, async (req, res) => {
             },
             { new: true, upsert: true }
         );
+
+        // Empty user cart
 
         const cartResult =
             (await CartModel.findOneAndUpdate(

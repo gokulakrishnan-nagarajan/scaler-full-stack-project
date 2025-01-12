@@ -28,6 +28,10 @@ const orderDetailsSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        transactionId: {
+            type: String,
+            required: true,
+        },
         amount: {
             type: Number,
             required: true,
