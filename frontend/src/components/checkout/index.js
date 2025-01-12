@@ -101,7 +101,7 @@ function Checkout() {
                 <StripeCheckout
                     stripeKey={process.env.REACT_APP_STRIPE_KEY}
                     name="eComm"
-                    description="Order payment"
+                    description="Enter 4242 4242 4242 4242 for card"
                     currency="INR"
                     email={userDetails.email}
                     amount={totalInPaise}

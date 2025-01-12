@@ -5,7 +5,7 @@ const { NOTIFICATION_TYPE } = require("../../constants/notification");
 const authMiddleware = async (req, res, next) => {
     try {
         const jwtToken = req.headers.authorization.split(" ")[1];
-        const verifedToken = jwt.verify(jwtToken, process.env.jwtKey);
+        const verifedToken = jwt.verify(jwtToken, process.env.JWT_KEY);
 
         req.body.userId = verifedToken.userId;
 

@@ -12,8 +12,8 @@ const wishlistRouter = require("./routes/wishlist");
 const orderRouter = require("./routes/order");
 
 const app = express();
-const PORT = process.env.port || 8080;
-const dbUrl = process.env.dbUrl;
+const PORT = process.env.PORT || 8080;
+const dbUrl = process.env.DB_URL;
 
 mongoose
     .connect(dbUrl)

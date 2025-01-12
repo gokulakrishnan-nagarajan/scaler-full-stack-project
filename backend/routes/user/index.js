@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
             if (isPasswordSame) {
                 const jwtToken = jwt.sign(
                     { userId: user._id },
-                    process.env.jwtKey,
+                    process.env.JWT_KEY,
                     {
                         expiresIn: "1d",
                     }
