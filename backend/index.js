@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 
 dotenv.config();
 
@@ -35,11 +36,16 @@ app.use(cors());
 // Express routers
 //
 
+app.use(express.static("./build"));
 app.use("/api/user", userRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/order", orderRouter);
+
+app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening at ${PORT}`);

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfull_stack=self.webpackChunkfull_stack||[]).push([[403],{8403:(e,t,c)=>{c.r(t),c.d(t,{default:()=>r});var s=c(5043),n=c(3216),u=c(9204),l=c(579);const r=function(){const e=(0,n.Zp)();return(0,s.useEffect)((()=>{const t=setTimeout((()=>{e(u.yZ)}),2e3);return()=>{clearTimeout(t)}}),[]),(0,l.jsx)("div",{className:"text-align-center",children:"Not Found ! Redirecting to home."})}}}]);
+//# sourceMappingURL=403.7e3ca8fc.chunk.js.map
