@@ -23,7 +23,7 @@ function Orders() {
     }
 
     if (!orders.length) {
-        return <div>No order found</div>;
+        return <div className="p-24 text-align-center">No order found !</div>;
     }
 
     const renderOrders = () => {

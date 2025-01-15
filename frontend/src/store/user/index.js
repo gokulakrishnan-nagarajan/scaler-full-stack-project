@@ -8,6 +8,9 @@ import {
 import axiosInstance from "../../axios";
 import { NOTIFICATION_TYPE } from "../../constants/notification";
 import { setNotificationMessage } from "../notification";
+import { setWishlist } from "../wishlist";
+import { setCart } from "../cart";
+import { loadProducts } from "../products";
 
 const initialState = {
     isRegistering: 0,
@@ -155,6 +158,10 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem("authToken");
 
     dispatch(setUserDetails(null));
+
+    dispatch(loadProducts(null));
+    dispatch(setCart(null));
+    dispatch(setWishlist(null));
 
     dispatch(
         setNotificationMessage({
